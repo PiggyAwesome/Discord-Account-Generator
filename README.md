@@ -40,3 +40,7 @@ You have to fill in the captcha! The program cant do it for you.
 
 ###### For legal reasons, don't use this.
 ###### This was only made for education purposes and to demonstrate the capabillaties of simple python, selenium code.
+
+
+
+If you like my creation, please consider starring the repo (:
