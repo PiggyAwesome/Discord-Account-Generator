@@ -1,5 +1,5 @@
 # Discord-Account-Generator
-Create Discord Accounts Semi-Automatically
+Create Discord Accounts Semi-Automatically without captcha solving api key
 
 
 IMPORTANT: Your chromedriver version should be the same version as your chrome browser version!
@@ -34,6 +34,9 @@ pip install time
 python account_generator.py
 
 ```
+
+You have to fill in the captcha! The program cant do it for you.
+
 
 ###### For legal reasons, don't use this.
 ###### This was only made for education purposes and to demonstrate the capabillaties of simple python, selenium code.
