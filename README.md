@@ -48,6 +48,6 @@ You have to fill in the captcha! The program cant do it for you.
 
 If you like my creation, please consider starring the repo (:
 
-# If you are looking for a more advanced, captcha solving software; check out https://sellix.io/product/60f039387a771 (Closed Scource so that Discord wont patch it!)
+### If you are looking for a more advanced, captcha solving software; check it out on [sellix](https://sellix.io/product/60f039387a771) (Closed Scource so that Discord wont patch it!) also for more account generators: [website](http://pigservices.piggyawesome.com)
 
 [secret](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
