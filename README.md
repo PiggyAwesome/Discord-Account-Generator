@@ -15,9 +15,9 @@ Get chromedriver from here: https://chromedriver.chromium.org/downloads
 + Automatically generate password
 + Automatically generate email
 + Randomly choose date
++ Automatically get 0Auth token
 
 ## Future Goals
-+ Automatically get authorization token
 + Verify account with temporary mail
 
 # How to run
@@ -25,9 +25,6 @@ Get chromedriver from here: https://chromedriver.chromium.org/downloads
 
 ```py
 pip install selenium
-pip install threading
-pip install random
-pip install time
 ```
 
 
@@ -38,11 +35,11 @@ python account_generator.py
 
 ```
 
-You have to fill in the captcha! The program cant do it for you.
+You have to fill in the captcha! The program is made to not do it for you.
 
 
 ###### For legal reasons, don't use this.
-###### This was only made for education purposes and to demonstrate the capabillaties of simple python, selenium code.
+###### This was only made for educational purposes and to demonstrate the capabillaties of simple python, selenium code.
 
 
 
