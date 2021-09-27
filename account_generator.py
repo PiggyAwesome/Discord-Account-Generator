@@ -11,6 +11,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 import random
+import string
 options = webdriver.ChromeOptions()
 
 driver = webdriver.Chrome(options=options, executable_path=r"chromedriver.exe")
@@ -27,9 +28,9 @@ except NoSuchElementException:
 
 sleep(2)
 ### Generate the login details ###
-username = random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890")
-email = ''.join(random.choice(string.ascii_letters) for i in range(10)) + '@' + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") +  '.' + random.choice("abcdefghijklmnopqrstuvwxyz") + random.choice("abcdefghijklmnopqrstuvwxyz") + random.choice("abcdefghijklmnopqrstuvwxyz") 
-password = random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890") + random.choice("abcdefghijklmnopqrstuvwxyz1234567890")
+username = ''.join(random.choice(string.digits + sting.ascii_letters) for i in range(8))
+email = ''.join(random.choice(string.ascii_letters) for i in range(10)) + '@' +  ''.join(random.choice(string.digits + sting.ascii_letters) for i in range(7)) + '.' + ''.join(random.choice(string.digits + sting.ascii_letters) for i in range(3))  
+password = ''.join(random.choice(string.digits + sting.ascii_letters) for i in range(8))
 ##################################
 
 ### Generate the bith date ###
