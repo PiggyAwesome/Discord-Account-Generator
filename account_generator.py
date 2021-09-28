@@ -1,4 +1,4 @@
-## NOTE: If you are looking for a better account generator, look at https://sellix.io/Pig-Services
+## NOTE:his gen shit lolz
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -28,9 +28,9 @@ except NoSuchElementException:
 
 sleep(2)
 ### Generate the login details ###
-username = ''.join(random.choice(string.digits + sting.ascii_letters) for i in range(8))
-email = ''.join(random.choice(string.ascii_letters) for i in range(10)) + '@' +  ''.join(random.choice(string.digits + sting.ascii_letters) for i in range(7)) + '.' + ''.join(random.choice(string.digits + sting.ascii_letters) for i in range(3))  
-password = ''.join(random.choice(string.digits + sting.ascii_letters) for i in range(8))
+username = ''.join(random.choice(string.digits + string.ascii_letters) for i in range(8))
+email = ''.join(random.choice(string.ascii_letters) for i in range(10)) + '@' +  ''.join(random.choice(string.digits + string.ascii_letters) for i in range(7)) + '.' + ''.join(random.choice(string.digits + string.ascii_letters) for i in range(3))  
+password = ''.join(random.choice(string.digits + string.ascii_letters) for i in range(8))
 ##################################
 
 ### Generate the bith date ###
