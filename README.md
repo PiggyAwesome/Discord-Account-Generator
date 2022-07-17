@@ -44,7 +44,7 @@ You have to fill in the captcha! The program is made to not do it for you.
 
 If you like my creation, please consider starring the repo (:
 
-### If you are looking for a more advanced captcha solving software, check it out on [Sellix!](https://sellix.io/product/60f039387a771) 
+### If you are looking for a more advanced, captcha solving included software, check it out on [Sellix!](https://sellix.io/product/60f039387a771) 
 (Closed Scource so that Discord wont patch it!)
 
 For other account generators: [Website](http://pigservices.piggyawesome.com)
