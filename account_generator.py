@@ -19,8 +19,31 @@ actions = ActionChains(driver)
 actions2 = ActionChains(driver)
 actions3 = ActionChains(driver)
 driver.get("https://discord.com/register")
+
+
+##############
+
+speedMultiplier = 5 # Higher speed = more difficult captcha
+
+##########
+
+phonecancel = "/html/body/div/div[2]/div/div/form/div/div/div[1]/div[1]/div[2]"
+emailinput = "/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[1]/div/input"
+usernameInput = "/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[2]/div/input"
+passwordInput = "/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[3]/div/input"
+monthInput = '/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[4]/div[1]/div[1]/div/div/div/div[1]/div[1]/div[1]'
+continueButton = '/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[6]/button'
+tosCheckbox = '/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[5]/label/input'
+
+
+def typeSlow(string):
+  for x in string:
+    actions.send_keys(x)
+    actions.perform()
+    sleep(random.choice([0.1, 0.2, 0.3, 0.5])/speedMultiplier)
+
 try:
- driver.find_element_by_xpath('/html/body/div/div[2]/div/div/form/div/div/div[1]/div[1]/div[2]').click() # Check if the register with phone number window appears
+  driver.find_element(By.XPATH, phonecancel).click() # Check if the register with phone number window appears
 except NoSuchElementException:
   pass
 
@@ -29,48 +52,60 @@ except NoSuchElementException:
 sleep(2)
 ### Generate the login details ###
 username = ''.join(random.choice(string.digits + string.ascii_letters) for i in range(8))
-email = ''.join(random.choice(string.ascii_letters) for i in range(10)) + '@' +  ''.join(random.choice(string.digits + string.ascii_letters) for i in range(7)) + '.' + ''.join(random.choice(string.digits + string.ascii_letters) for i in range(3))  
+email = ''.join(random.choice(string.ascii_letters) for i in range(5)) + '@' +  ''.join(random.choice(string.digits + string.ascii_letters) for i in range(5)) + '.' + ''.join(random.choice(string.ascii_letters) for i in range(3))  
 password = ''.join(random.choice(string.digits + string.ascii_letters) for i in range(8))
 ##################################
 
 ### Generate the bith date ###
-year = [1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000]
-months = ['//*[@id="react-select-2-option-0"]', '//*[@id="react-select-2-option-1"]', '//*[@id="react-select-2-option-2"]', '//*[@id="react-select-2-option-3"]', '//*[@id="react-select-2-option-4"]', '//*[@id="react-select-2-option-5"]', '//*[@id="react-select-2-option-6"]', '//*[@id="react-select-2-option-7"]', '//*[@id="react-select-2-option-8"]', '//*[@id="react-select-2-option-9"]', '//*[@id="react-select-2-option-10"]', '//*[@id="react-select-2-option-11"]']
+year = str(random.randint(1970, 2000))
 monthwords = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augustus', 'September', 'October', 'November', 'December']
 day = str(random.randint(1,28))
 ###############################
 
 # Find the email input field and type the email
-driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/form/div/div/div[1]/div/input').click() 
-driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/form/div/div/div[1]/div/input').send_keys(email)
+driver.find_element(By.XPATH, emailinput).click()
+typeSlow(email)
 
 # Find the username input field and type the username
-driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/form/div/div/div[2]/div/input').click() 
-driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/form/div/div/div[2]/div/input').send_keys(username)
+# driver.find_element(By.XPATH, usernameInput).click() 
+driver.find_element(By.XPATH, usernameInput).click()
+typeSlow(username)
+
 
 # Find the password input field and type the password
-driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/form/div/div/div[3]/div/input').click() 
-driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/form/div/div/div[3]/div/input').send_keys(password)
+driver.find_element(By.XPATH, passwordInput).click()
+typeSlow(password)
 
 # Find the Date of Birth section and fill it in
-driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/form/div/div/div[4]/div[1]/div[1]/div/div/div/div[1]').click()
-driver.find_element_by_xpath(random.choice(months)).click() # Month
-actions.send_keys(Keys.ENTER)
+driver.find_element(By.XPATH, monthInput).click()
+sleep(1/speedMultiplier)
 
-actions.send_keys(day) # Day
+typeSlow(random.choice(monthwords)) # Month
 actions.send_keys(Keys.ENTER)
-
-actions.send_keys(str(random.choice(year))) # Year
-actions.send_keys(Keys.ENTER)
-
 actions.perform()
 
+sleep(0.5/speedMultiplier)
+
+typeSlow(str(day)) # Day
+actions.send_keys(Keys.ENTER)
+actions.perform()
+
+sleep(0.4/speedMultiplier)
+
+typeSlow(year) # Year
+actions.send_keys(Keys.ENTER)
+actions.perform()
+
+sleep(0.5/speedMultiplier)
+
 try:
- driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/form/div/div/div[5]/label/input').click() # Accept TOS
+ driver.find_element(By.XPATH, tosCheckbox).click() # Accept TOS
 except NoSuchElementException:  # Sometimes the checkbox doesnt appear
   pass
-driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/form/div/div/div[5]/button').click()      # Continue
-# driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/form/div/div/div[4]/div[1]/div[1]/div/div/div/div[1]/div[1]').click.send_keys(monthwords).send_keys(Keys.ENTER)
+
+sleep(0.3/speedMultiplier)
+
+driver.find_element(By.XPATH, continueButton).click()      # Continue
 
 print('')
 print('   __ _ _ _   _                         _       _           ')
