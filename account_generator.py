@@ -31,8 +31,8 @@ phonecancel = "/html/body/div/div[2]/div/div/form/div/div/div[1]/div[1]/div[2]"
 emailinput = "/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[1]/div/input"
 usernameInput = "/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[2]/div/input"
 passwordInput = "/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[3]/div/input"
-monthInput = '/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[4]/div[1]/div[1]/div/div/div/div[1]/div[1]/div[1]'
-continueButton = '/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[6]/button'
+dayInput = '/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/fieldset/div[1]/div[1]/div/div/div/div[1]/div[1]'
+continueButton = '/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[5]/button/div'
 tosCheckbox = '/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[5]/label/input'
 
 
@@ -77,18 +77,21 @@ driver.find_element(By.XPATH, passwordInput).click()
 typeSlow(password)
 
 # Find the Date of Birth section and fill it in
-driver.find_element(By.XPATH, monthInput).click()
+driver.find_element(By.XPATH, dayInput).click()
 sleep(1/speedMultiplier)
 
-typeSlow(random.choice(monthwords)) # Month
+
+typeSlow(str(day)) # Day
 actions.send_keys(Keys.ENTER)
 actions.perform()
 
 sleep(0.5/speedMultiplier)
 
-typeSlow(str(day)) # Day
+typeSlow(random.choice(monthwords)) # Month
 actions.send_keys(Keys.ENTER)
 actions.perform()
+
+
 
 sleep(0.4/speedMultiplier)
 
