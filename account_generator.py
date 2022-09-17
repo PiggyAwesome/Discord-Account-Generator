@@ -23,7 +23,7 @@ driver.get("https://discord.com/register")
 
 ##############
 
-speedMultiplier = 5 # Higher speed = more difficult captcha
+speedMultiplier = 3 # Higher speed = more difficult captcha
 
 ##########
 
@@ -63,43 +63,47 @@ day = str(random.randint(1,28))
 ###############################
 
 # Find the email input field and type the email
+sleep(0.3/speedMultiplier)
 driver.find_element(By.XPATH, emailinput).click()
+sleep(0.6/speedMultiplier)
 typeSlow(email)
+sleep(0.5/speedMultiplier)
 
 # Find the username input field and type the username
 # driver.find_element(By.XPATH, usernameInput).click() 
+sleep(0.8/speedMultiplier)
 driver.find_element(By.XPATH, usernameInput).click()
+sleep(0.6/speedMultiplier)
 typeSlow(username)
-
+sleep(0.2/speedMultiplier)
 
 # Find the password input field and type the password
 driver.find_element(By.XPATH, passwordInput).click()
 typeSlow(password)
+sleep(0.4/speedMultiplier)
 
 # Find the Date of Birth section and fill it in
 driver.find_element(By.XPATH, dayInput).click()
+sleep(0.6/speedMultiplier)
+actions.send_keys(Keys.ENTER)
 sleep(1/speedMultiplier)
 
 
-typeSlow(str(day)) # Day
+# Type the day
+sleep(0.2/speedMultiplier)
+typeSlow(str(random.randint(1,28)))
+sleep(0.3/speedMultiplier)
 actions.send_keys(Keys.ENTER)
 actions.perform()
+sleep(0.6/speedMultiplier)
 
-sleep(0.5/speedMultiplier)
-
-typeSlow(random.choice(monthwords)) # Month
-actions.send_keys(Keys.ENTER)
-actions.perform()
-
-
-
+# Type the year
 sleep(0.4/speedMultiplier)
-
-typeSlow(year) # Year
+typeSlow(year)
+sleep(0.7/speedMultiplier)
 actions.send_keys(Keys.ENTER)
+sleep(0.2/speedMultiplier)
 actions.perform()
-
-sleep(0.5/speedMultiplier)
 
 try:
  driver.find_element(By.XPATH, tosCheckbox).click() # Accept TOS
