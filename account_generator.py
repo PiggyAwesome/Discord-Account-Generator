@@ -23,7 +23,7 @@ driver.get("https://discord.com/register")
 
 ##############
 
-speedMultiplier = 3 # Higher speed = more difficult captcha
+speedMultiplier = 5 # Higher speed = more difficult captcha
 
 ##########
 
@@ -37,15 +37,15 @@ tosCheckbox = '/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[
 
 
 def typeSlow(string):
-  for x in string:
-    actions.send_keys(x)
-    actions.perform()
-    sleep(random.choice([0.1, 0.2, 0.3, 0.5])/speedMultiplier)
+    for x in string:
+        actions.send_keys(x)
+        actions.perform()
+        sleep(random.choice([0.1, 0.2, 0.3, 0.5])/speedMultiplier)
 
 try:
-  driver.find_element(By.XPATH, phonecancel).click() # Check if the register with phone number window appears
+    driver.find_element(By.XPATH, phonecancel).click() # Check if the register with phone number window appears
 except NoSuchElementException:
-  pass
+    pass
 
 
 
@@ -63,52 +63,38 @@ day = str(random.randint(1,28))
 ###############################
 
 # Find the email input field and type the email
-sleep(0.3/speedMultiplier)
 driver.find_element(By.XPATH, emailinput).click()
-sleep(0.6/speedMultiplier)
 typeSlow(email)
-sleep(0.5/speedMultiplier)
 
 # Find the username input field and type the username
 # driver.find_element(By.XPATH, usernameInput).click() 
-sleep(0.8/speedMultiplier)
 driver.find_element(By.XPATH, usernameInput).click()
-sleep(0.6/speedMultiplier)
 typeSlow(username)
-sleep(0.2/speedMultiplier)
+
 
 # Find the password input field and type the password
 driver.find_element(By.XPATH, passwordInput).click()
 typeSlow(password)
-sleep(0.4/speedMultiplier)
 
 # Find the Date of Birth section and fill it in
 driver.find_element(By.XPATH, dayInput).click()
-sleep(0.6/speedMultiplier)
+typeSlow(str(day)) # Day
 actions.send_keys(Keys.ENTER)
-sleep(1/speedMultiplier)
 
-
-# Type the day
-sleep(0.2/speedMultiplier)
-typeSlow(str(random.randint(1,28)))
-sleep(0.3/speedMultiplier)
+typeSlow(random.choice(monthwords)) # Month
 actions.send_keys(Keys.ENTER)
+
+typeSlow(year) # Year
+
 actions.perform()
-sleep(0.6/speedMultiplier)
 
-# Type the year
-sleep(0.4/speedMultiplier)
-typeSlow(year)
-sleep(0.7/speedMultiplier)
-actions.send_keys(Keys.ENTER)
-sleep(0.2/speedMultiplier)
-actions.perform()
+sleep(0.5/speedMultiplier)
+
 
 try:
- driver.find_element(By.XPATH, tosCheckbox).click() # Accept TOS
+    driver.find_element(By.XPATH, tosCheckbox).click() # Accept TOS
 except NoSuchElementException:  # Sometimes the checkbox doesnt appear
-  pass
+    pass
 
 sleep(0.3/speedMultiplier)
 
