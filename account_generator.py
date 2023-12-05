@@ -1,23 +1,19 @@
 ## NOTE: If you are looking for a better account generator, look at https://sellix.io/Pig-Services
 
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC  
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
 from time import sleep
 import random
 import string
+from handlers import *
+
 options = webdriver.ChromeOptions()
 
-driver = webdriver.Chrome(options=options, executable_path=r"chromedriver.exe")
+driver = webdriver.Chrome(options=options)
 actions = ActionChains(driver)
-actions2 = ActionChains(driver)
-actions3 = ActionChains(driver)
 driver.get("https://discord.com/register")
 
 
@@ -27,88 +23,91 @@ speedMultiplier = 5 # Higher speed = more difficult captcha
 
 ##########
 
-phonecancel = "/html/body/div/div[2]/div/div/form/div/div/div[1]/div[1]/div[2]"
-emailinput = "/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[1]/div/input"
-usernameInput = "/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[2]/div/input"
-passwordInput = "/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[3]/div/input"
-dayInput = '/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/fieldset/div[1]/div[1]/div/div/div/div[1]/div[1]'
-continueButton = '/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[5]/button/div'
-tosCheckbox = '/html/body/div[1]/div[2]/div/div[1]/div/div/div/form/div/div/div[5]/label/input'
+class InputSelectors:
+    emailinput = "#uid_5"
+    displaynameInput = "#uid_6"
+    usernameInput = "#uid_7"
+    passwordInput = "#uid_8"
+    continueButton = "button[type='submit']"
+    tosCheckbox = '#app-mount > div.appAsidePanelWrapper__714a6 > div.notAppAsidePanel__9d124 > div.app_b1f720 > div > div > div > form > div.centeringWrapper__319b0 > div > div.flex_f5fbb7.horizontal__992f6.justifyStart__42744.alignCenter__84269.noWrap__5c413.marginTop20_d88ee7 > label > div.checkbox_c7f690.box__66058'
 
 
-def typeSlow(string):
-    for x in string:
-        actions.send_keys(x)
-        actions.perform()
-        sleep(random.choice([0.1, 0.2, 0.3, 0.5])/speedMultiplier)
-
-try:
-    driver.find_element(By.XPATH, phonecancel).click() # Check if the register with phone number window appears
-except NoSuchElementException:
-    pass
+# try:
+#     driver.find_element(By.XPATH, phonecancel).click() # Check if the register with phone number window appears
+# except NoSuchElementException:
+#     pass
 
 
 
 sleep(2)
+
 ### Generate the login details ###
 username = ''.join(random.choice(string.digits + string.ascii_letters) for i in range(8))
 email = ''.join(random.choice(string.ascii_letters) for i in range(5)) + '@' +  ''.join(random.choice(string.digits + string.ascii_letters) for i in range(5)) + '.' + ''.join(random.choice(string.ascii_letters) for i in range(3))  
 password = ''.join(random.choice(string.digits + string.ascii_letters) for i in range(8))
 ##################################
 
-### Generate the bith date ###
-year = str(random.randint(1970, 2000))
-monthwords = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augustus', 'September', 'October', 'November', 'December']
-day = str(random.randint(1,28))
-###############################
 
 # Find the email input field and type the email
-driver.find_element(By.XPATH, emailinput).click()
-typeSlow(email)
+elmnt = Element(driver.find_element(By.NAME, "email"))
+elmnt.click().typeSlow(email, speedMultiplier)
+
+
+# Find the display name input field and type the display name
+elmnt = Element(driver.find_element(By.NAME, "global_name"))
+elmnt.click().typeSlow(username, speedMultiplier)
+
 
 # Find the username input field and type the username
-# driver.find_element(By.XPATH, usernameInput).click() 
-driver.find_element(By.XPATH, usernameInput).click()
-typeSlow(username)
+elmnt = Element(driver.find_element(By.NAME, "username"))
+elmnt.click().typeSlow(username, speedMultiplier)
 
 
 # Find the password input field and type the password
-driver.find_element(By.XPATH, passwordInput).click()
-typeSlow(password)
+elmnt = Element(driver.find_element(By.NAME, "password"))
+elmnt.click().typeSlow(password, speedMultiplier)
 
-# Find the Date of Birth section and fill it in
-driver.find_element(By.XPATH, dayInput).click()
-typeSlow(str(day)) # Day
-actions.send_keys(Keys.ENTER)
 
-typeSlow(random.choice(monthwords)) # Month
-actions.send_keys(Keys.ENTER)
 
-typeSlow(year) # Year
 
-actions.perform()
+dobber = DOBNavigator(driver)
 
+dobber.openMenu("day")
+selection = dobber.chooseElement(dobber.getMenuObject().getChildren())
+selection.scrollIntoView(actions).click()
+sleep(0.5/speedMultiplier)
+
+
+dobber.openMenu("month")
+selection = dobber.chooseElement(dobber.getMenuObject().getChildren())
+selection.scrollIntoView(actions).click()
+sleep(0.5/speedMultiplier)
+
+
+dobber.openMenu("year")
+selection = dobber.chooseElement(dobber.getMenuObject().getChildren())
+selection.scrollIntoView(actions).click()
 sleep(0.5/speedMultiplier)
 
 
 try:
-    driver.find_element(By.XPATH, tosCheckbox).click() # Accept TOS
+    driver.find_element(By.CSS_SELECTOR, InputSelectors.tosCheckbox).click() # Accept TOS
+    sleep(0.3/speedMultiplier)
 except NoSuchElementException:  # Sometimes the checkbox doesnt appear
     pass
 
-sleep(0.3/speedMultiplier)
 
-driver.find_element(By.XPATH, continueButton).click()      # Continue
+driver.find_element(By.CSS_SELECTOR, InputSelectors.continueButton).click()      # Continue
 
 print('')
-print('   __ _ _ _   _                         _       _           ')
-print('  / _(_) | | (_)                       | |     | |          ')
-print(' | |_ _| | |  _ _ __     ___ __ _ _ __ | |_ ___| |__   __ _ ')
-print(' |  _| | | | | | `_ \   / __/ _` | `_ \| __/ __| `_ \ / _` |') 
-print(' | | | | | | | | | | | | (_| (_| | |_) | || (__| | | | (_| |')   # Tells user to solve captcha
-print(' |_| |_|_|_| |_|_| |_|  \___\__,_| .__/ \__\___|_| |_|\__,_|')
-print('                                 | |                        ')
-print('                                 |_|                        ')
+print(r'   __ _ _ _   _                         _       _           ')
+print(r'  / _(_) | | (_)                       | |     | |          ')
+print(r' | |_ _| | |  _ _ __     ___ __ _ _ __ | |_ ___| |__   __ _ ')
+print(r' |  _| | | | | | `_ \   / __/ _` | `_ \| __/ __| `_ \ / _` |') 
+print(r' | | | | | | | | | | | | (_| (_| | |_) | || (__| | | | (_| |')   # Tells user to solve captcha
+print(r' |_| |_|_|_| |_|_| |_|  \___\__,_| .__/ \__\___|_| |_|\__,_|')
+print(r'                                 | |                        ')
+print(r'                                 |_|                        ')
 
 
 input('Press ENTER to get 0Auth token.')  # Waits for user to solve captcha before moving on
