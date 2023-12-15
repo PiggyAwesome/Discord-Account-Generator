@@ -9,10 +9,18 @@ from time import sleep
 import random
 import string
 from handlers import *
+from selenium.webdriver.common.proxy import Proxy, ProxyType
 
 options = webdriver.ChromeOptions()
 
-driver = webdriver.Chrome(options=options)
+p = Proxy()
+p.proxy_type = ProxyType.MANUAL
+p.http_proxy = "PROXY"
+p.ssl_proxy = "PROXY"
+options.proxy = p
+
+driver = webdriver.Chrome(options=options, keep_alive=True)
+
 actions = ActionChains(driver)
 driver.get("https://discord.com/register")
 
@@ -43,7 +51,7 @@ sleep(2)
 
 ### Generate the login details ###
 username = ''.join(random.choice(string.digits + string.ascii_letters) for i in range(8))
-email = ''.join(random.choice(string.ascii_letters) for i in range(5)) + '@' +  ''.join(random.choice(string.digits + string.ascii_letters) for i in range(5)) + '.' + ''.join(random.choice(string.ascii_letters) for i in range(3))  
+email = ''.join(random.choice(string.ascii_letters) for i in range(5)) + '@' + "gmail.com" # ''.join(random.choice(string.digits + string.ascii_letters) for i in range(5)) + '.' + ''.join(random.choice(string.ascii_letters) for i in range(3))  
 password = ''.join(random.choice(string.digits + string.ascii_letters) for i in range(8))
 ##################################
 
@@ -116,10 +124,8 @@ input('Press ENTER to get 0Auth token.')  # Waits for user to solve captcha befo
 token = driver.execute_script('location.reload();var i=document.createElement("iframe");document.body.appendChild(i);return i.contentWindow.localStorage.token').strip('"') # Get the token
 
 
-sleep(5)
-
 print(f'Made account:')
 print(f'{email}:{password}:{username}:{token}')
 
-sleep(5)
+input("Enter to exit... ")
 driver.close() 
