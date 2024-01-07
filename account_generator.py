@@ -1,4 +1,4 @@
-## NOTE: If you are looking for a better account generator, look at https://pigservices.sellix.io/
+## NOTE: If you are looking for a better account generator, look at https://sellix.io/Pig-Services
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
@@ -8,31 +8,20 @@ from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 import random
 import string
-from handlers import Element, DOBNavigator
-from selenium.webdriver.common.proxy import Proxy, ProxyType
-
-
-
-##############
-proxy = "PROXY"  # Remember to enter your proxy
-speedMultiplier = 5 # Higher speed = more difficult captcha
-##########
-
-
+from handlers import *
 
 options = webdriver.ChromeOptions()
 
-p = Proxy()
-p.proxy_type = ProxyType.MANUAL
-p.http_proxy = proxy
-p.ssl_proxy = proxy
-options.proxy = p
-
-driver = webdriver.Chrome(options=options, keep_alive=True)
-
+driver = webdriver.Chrome(options=options)
 actions = ActionChains(driver)
 driver.get("https://discord.com/register")
 
+
+##############
+
+speedMultiplier = 5 # Higher speed = more difficult captcha
+
+##########
 
 class InputSelectors:
     emailinput = "#uid_5"
@@ -43,11 +32,18 @@ class InputSelectors:
     tosCheckbox = '#app-mount > div.appAsidePanelWrapper__714a6 > div.notAppAsidePanel__9d124 > div.app_b1f720 > div > div > div > form > div.centeringWrapper__319b0 > div > div.flex_f5fbb7.horizontal__992f6.justifyStart__42744.alignCenter__84269.noWrap__5c413.marginTop20_d88ee7 > label > div.checkbox_c7f690.box__66058'
 
 
+# try:
+#     driver.find_element(By.XPATH, phonecancel).click() # Check if the register with phone number window appears
+# except NoSuchElementException:
+#     pass
 
+
+
+sleep(2)
 
 ### Generate the login details ###
 username = ''.join(random.choice(string.digits + string.ascii_letters) for i in range(8))
-email = ''.join(random.choice(string.ascii_letters) for i in range(5)) + '@' + "gmail.com" 
+email = ''.join(random.choice(string.ascii_letters) for i in range(5)) + '@' +  ''.join(random.choice(string.digits + string.ascii_letters) for i in range(5)) + '.' + ''.join(random.choice(string.ascii_letters) for i in range(3))  
 password = ''.join(random.choice(string.digits + string.ascii_letters) for i in range(8))
 ##################################
 
@@ -73,8 +69,6 @@ elmnt.click().typeSlow(password, speedMultiplier)
 
 
 
-# Slightly more complex functions to increase the believability and accuracy of the date of birth section. 
-# Each custom defined function has a documented purpose
 
 dobber = DOBNavigator(driver)
 
@@ -122,8 +116,10 @@ input('Press ENTER to get 0Auth token.')  # Waits for user to solve captcha befo
 token = driver.execute_script('location.reload();var i=document.createElement("iframe");document.body.appendChild(i);return i.contentWindow.localStorage.token').strip('"') # Get the token
 
 
+sleep(5)
+
 print(f'Made account:')
 print(f'{email}:{password}:{username}:{token}')
 
-input("Enter to exit... ")
+sleep(5)
 driver.close() 
