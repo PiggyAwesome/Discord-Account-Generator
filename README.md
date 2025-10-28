@@ -4,7 +4,7 @@ Create Discord Accounts Semi-Automatically without captcha solving api key
 
 IMPORTANT: Your chromedriver version should be the same version as your chrome browser version!
 
-Get chromedriver from here: <https://chromedriver.chromium.org/downloads>
+Get chromedriver from here: <https://googlechromelabs.github.io/chrome-for-testing/>
 
 ![image](https://user-images.githubusercontent.com/48888771/126191568-14c99176-59c4-46b5-9f2e-cd720f8ee573.png)
 
