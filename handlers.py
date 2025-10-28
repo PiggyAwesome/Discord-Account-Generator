@@ -53,10 +53,10 @@ class DOBNavigator:
                 value = "[class*='year_']"
         self.driver.find_element(By.CSS_SELECTOR, value).click()
         return True
-
     def getMenuObject(self):
         "Finds the menu and returns it as an element."
-        return Element(self.driver.find_element(By.CSS_SELECTOR, "[class*='-menu']"))
+        # Currently it seems like discord date menus use the format popout_{n} where n is a 2 digit num 
+        return Element(self.driver.find_element(By.CSS_SELECTOR, f"[id^='popout']"))
 
     def chooseElement(self, elementList: list[WebElement]):
         "Choose and retturn a random element inside the element list."

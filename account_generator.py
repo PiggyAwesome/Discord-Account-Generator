@@ -15,7 +15,7 @@ from selenium.webdriver.common.proxy import Proxy, ProxyType
 
 ##############
 proxy = "PROXY"  # Remember to enter your proxy
-speedMultiplier = 5 # Higher speed = more difficult captcha
+speedMultiplier = 5 # Generally higher speed = more difficult captcha
 ##########
 
 
@@ -32,7 +32,7 @@ driver = webdriver.Chrome(options=options, keep_alive=True)
 
 actions = ActionChains(driver)
 driver.get("https://discord.com/register")
-
+sleep(2)
 
 class InputSelectors:
     emailinput = "#uid_5"
@@ -79,19 +79,19 @@ elmnt.click().typeSlow(password, speedMultiplier)
 dobber = DOBNavigator(driver)
 
 dobber.openMenu("day")
-selection = dobber.chooseElement(dobber.getMenuObject().getChildren())
+selection = dobber.chooseElement(Element(dobber.getMenuObject().getChildren()[0]).getChildren())
 selection.scrollIntoView(actions).click()
 sleep(0.5/speedMultiplier)
 
 
 dobber.openMenu("month")
-selection = dobber.chooseElement(dobber.getMenuObject().getChildren())
+selection = dobber.chooseElement(Element(dobber.getMenuObject().getChildren()[0]).getChildren())
 selection.scrollIntoView(actions).click()
 sleep(0.5/speedMultiplier)
 
 
 dobber.openMenu("year")
-selection = dobber.chooseElement(dobber.getMenuObject().getChildren())
+selection = dobber.chooseElement(Element(dobber.getMenuObject().getChildren()[0]).getChildren())
 selection.scrollIntoView(actions).click()
 sleep(0.5/speedMultiplier)
 
