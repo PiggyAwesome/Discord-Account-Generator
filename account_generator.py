@@ -5,6 +5,8 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC  
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 import random
 import string
@@ -14,7 +16,7 @@ from selenium.webdriver.common.proxy import Proxy, ProxyType
 
 
 ##############
-proxy = "PROXY"  # Remember to enter your proxy
+proxy = None  # Remember to enter your proxy (e.g. "127.0.0.1:8080"), or leave as None to skip
 speedMultiplier = 5 # Generally higher speed = more difficult captcha
 ##########
 
@@ -22,13 +24,15 @@ speedMultiplier = 5 # Generally higher speed = more difficult captcha
 
 options = webdriver.ChromeOptions()
 
-p = Proxy()
-p.proxy_type = ProxyType.MANUAL
-p.http_proxy = proxy
-p.ssl_proxy = proxy
-options.proxy = p
+if proxy is not None:
+    p = Proxy()
+    p.proxy_type = ProxyType.MANUAL
+    p.http_proxy = proxy
+    p.ssl_proxy = proxy
+    options.proxy = p
 
-driver = webdriver.Chrome(options=options, keep_alive=True)
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service, options=options, keep_alive=True)
 
 actions = ActionChains(driver)
 driver.get("https://discord.com/register")
